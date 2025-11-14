@@ -51,7 +51,7 @@ public class Game extends RentItem implements MenuActions {
             return;
         }
         
-        sb.append((indice + 1)).append(".").append(Especificaciones.get(indice)).append("\n");
+        sb.append((indice + 1)).append(". ").append(Especificaciones.get(indice)).append("\n");
         ListEspecificacionesRec(indice + 1, sb);
     }
     
@@ -61,7 +61,7 @@ public class Game extends RentItem implements MenuActions {
         
         return pago;
     }
-    
+        
     @Override
     public void submenu() {
         int opcion = 0;
@@ -94,6 +94,75 @@ public class Game extends RentItem implements MenuActions {
     
     @Override
     public void ejecutarOption(int opcion) {
+        switch(opcion) {
+            case 1: //Actualzar fecha de publicacion
+                ActualizarFechaPublicacion();
+                break;
+            case 2: //Agregar especificacion
+                AgregarEspecificacion();
+                break;
+            case 3: //Ver espeficicaciones
+                listEspecificaciones();
+                break;
+            default:
+                JOptionPane.showMessageDialog(null, "Opcion erronea", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    /*
+        Opcion 1
+    */
+    private void ActualizarFechaPublicacion() {
+        try {
+            //Anio
+            String anio = JOptionPane.showInputDialog(null, "Ingrese el año de publicacion", "Actualizar Fecha", JOptionPane.QUESTION_MESSAGE);
+
+            if (anio == null) {
+                return;
+            }
+
+            int year = Integer.parseInt(anio);
+
+            //Mes
+            String mes = JOptionPane.showInputDialog(null, "Ingrese el mes de publicacion (1-12)", "Actualizar Fecha", JOptionPane.QUESTION_MESSAGE);
+
+            if (mes == null) {
+                return;
+            }
+
+            int month = Integer.parseInt(mes);
+
+            //Dia
+            String dia = JOptionPane.showInputDialog(null, "Ingrese el dia de publicacion", "Actualizar Fecha", JOptionPane.QUESTION_MESSAGE);
+
+            if (dia == null) {
+                return;
+            }
+
+            int day = Integer.parseInt(dia);
+
+            //Actulizar fecha aqui
+            setFechaPublicacion(year, month, day);
+
+            JOptionPane.showMessageDialog(null, "La fecha de publicacion se ha actualizado con exito", "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
         
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Datos invalidos.\nIntente de nuevo", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    /*
+        Opcion 2
+    */
+    private void AgregarEspecificacion() {
+        String especificacion = JOptionPane.showInputDialog(null, "Ingrese la nueva especificacion para añadir", "Agregar especificacion", JOptionPane.QUESTION_MESSAGE);
+        
+        if (especificacion != null && !especificacion.trim().isEmpty()) {
+            Especificaciones.add(especificacion);
+            
+            JOptionPane.showMessageDialog(null, "Especificacion agregada con exito", "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
+        } else if (especificacion != null) {
+            JOptionPane.showMessageDialog(null, "El texto esta vacio, no se va a añadir nada", "Aviso", JOptionPane.WARNING_MESSAGE);
+        }
     }
 }
