@@ -65,7 +65,7 @@ public class Movie extends RentItem{
                 }
             default:
                 return 0;
-
+ 
         }
     }
     
