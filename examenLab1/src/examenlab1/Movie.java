@@ -43,13 +43,39 @@ public class Movie extends RentItem{
        }
 
     }
-
+    
     @Override
     public double PagoRenta(int dias) {
-        
-        return 0;
-        
+
+        switch (getEstado()) {
+
+            case "ESTRENO":
+
+                if (dias > 2) {
+                    return super.getPrecioBase() + ((dias - 2) * 50);
+                } else {
+                    return super.getPrecioBase();
+                }
+            case "NORMAL":
+
+                if (dias > 5) {
+                    return super.getPrecioBase() + ((dias - 5) * 30);
+                } else {
+                    return super.getPrecioBase();
+                }
+            default:
+                return 0;
+
+        }
     }
     
-    
+    @Override
+    public String toString(){
+        String precio = (PrecioBase > 0) ? String.format("Lps.%.2f", PrecioBase) : "N/A";
+        return "- Movie\n"
+                + "\n | Codigo: "+CodigoItem
+                + "\n | Nombre: "+NombreItem
+                + "\n | Precio de Renta: "+precio
+                + "\n | Estado :"+getEstado();
+    }
 }
