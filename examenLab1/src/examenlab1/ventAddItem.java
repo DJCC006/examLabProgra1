@@ -8,6 +8,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -25,6 +26,10 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class ventAddItem implements MenuActions {
     
     private ImageIcon imagenGuardada;
+     JTextField nombretxt;
+     JTextField preciotxt; 
+      JLabel imagLb;
+      JComboBox opciones;
     JTextField codigotxt = new JTextField();
     
     
@@ -49,7 +54,7 @@ public class ventAddItem implements MenuActions {
         
         
         Object[] data = {"GAME", "MOVIE"};
-        JComboBox opciones = new JComboBox(data);
+         opciones = new JComboBox(data);
         opciones.setBounds(110,180 , 200, 30);
         
         JLabel opcionlb = new JLabel("Seleccione el tipo de Item");
@@ -66,20 +71,20 @@ public class ventAddItem implements MenuActions {
         JLabel nombrelb = new JLabel("Ingrese el nombre del Item");
          nombrelb.setBounds(100, 310, 200, 50);
          
-           JTextField nombretxt = new JTextField();
+        nombretxt = new JTextField();
          nombretxt.setBounds(100, 360, 200, 20);
          
         JLabel preciolb = new JLabel("Ingrese el precio base del Item");
          preciolb.setBounds(100, 410, 200, 50);
          
-           JTextField preciotxt = new JTextField();
+        preciotxt = new JTextField();
          preciotxt.setBounds(100, 460, 200, 20);
          
          
         JButton imagenlb = new JButton("Seleccione la imagen del Item");
          imagenlb.setBounds(400, 130, 280, 30);
          
-         JLabel imagLb = new JLabel("");
+         imagLb = new JLabel("");
          imagLb.setBounds(400, 180, 280, 300);
          
             imagenlb.addActionListener(new ActionListener(){
@@ -118,6 +123,10 @@ public class ventAddItem implements MenuActions {
           btAdd.addActionListener(new ActionListener(){
           @Override 
           public void actionPerformed(ActionEvent e){ 
+              ejecutarOption(1);
+              
+              
+              
           }
                     
         });
@@ -137,6 +146,8 @@ public class ventAddItem implements MenuActions {
           btVolver.addActionListener(new ActionListener(){
           @Override 
           public void actionPerformed(ActionEvent e){ 
+              screen.dispose();
+              menuPrincipal ventana = new menuPrincipal();
           }
                     
         });
@@ -166,7 +177,109 @@ public class ventAddItem implements MenuActions {
 
     @Override
     public void ejecutarOption(int opcion) {
-       //Aqui iria logica de crear verificacion
+       String tipo =(String) opciones.getSelectedItem();
+              if(tipo.equals("GAME")){
+                  boolean val1=false;
+                  boolean val2=false;
+                  
+                  String nombre =nombretxt.getText();
+                  int codeYes=0;
+
+                 try{
+                    int codeMaybe = Integer.parseInt(codigotxt.getText());
+                    if(codeMaybe>0 ){
+                       codeYes=codeMaybe;
+                       val1=true;
+                    }else{
+                        JOptionPane.showMessageDialog(null, "Codigo Solamente puede ser numeros enteros positivos");
+                    }
+
+                }catch(NumberFormatException a)  {
+                    JOptionPane.showMessageDialog(null, "Codigo Solamente puede ser numeros enteros");
+                }
+                 
+               
+                double priceYes=0;
+                
+                try{
+                    double priceMaybe = Double.parseDouble(preciotxt.getText());
+                    priceYes=priceMaybe;
+                    val2=true;
+                }catch(NumberFormatException f){
+                    JOptionPane.showMessageDialog(null, "Precio Solamente puede ser numeros");
+                }
+                 
+                
+                
+                
+                
+                
+                if(val1==true && val2== true){
+                    Game nuevoJuego = new Game(codeYes,nombre,priceYes);
+                    nuevoJuego.setImagenItem(imagenGuardada);
+                    controladorDatos.getInstancia().getDatos().add(nuevoJuego);
+                    JOptionPane.showMessageDialog(null, "JUEGO AGREGADO EXITOSAMENTE");
+                    codigotxt.setText("");
+                    nombretxt.setText("");
+                    preciotxt.setText("");
+                    imagLb.setIcon(null);
+                    imagenGuardada= null;
+                    
+                }
+                 
+              }else if(tipo.equals("MOVIE")){
+                  boolean val1=false;
+                  boolean val2=false;
+                  
+                  String nombre =nombretxt.getText();
+                  int codeYes=0;
+
+                 try{
+                    int codeMaybe = Integer.parseInt(codigotxt.getText());
+                    if(codeMaybe>0 ){
+                       codeYes=codeMaybe;
+                       val1=true;
+                    }else{
+                        JOptionPane.showMessageDialog(null, "Codigo Solamente puede ser numeros enteros positivos");
+                    }
+
+                }catch(NumberFormatException a)  {
+                    JOptionPane.showMessageDialog(null, "Codigo Solamente puede ser numeros enteros");
+                }
+                 
+               
+                double priceYes=0;
+                
+                try{
+                    double priceMaybe = Double.parseDouble(preciotxt.getText());
+                    priceYes=priceMaybe;
+                    val2=true;
+                }catch(NumberFormatException f){
+                    JOptionPane.showMessageDialog(null, "Precio Solamente puede ser numeros");
+                }
+                 
+                
+                boolean val3= validacionCodigo(codeYes);
+                if(val3==false){
+                    JOptionPane.showMessageDialog(null, "CODIGO INVALIDO, YA EXISTE");
+                }
+                
+                
+                
+                
+                if(val1==true && val2== true && val3==true){
+                    Game nuevoJuego = new Game(codeYes,nombre,priceYes);
+                    nuevoJuego.setImagenItem(imagenGuardada);
+                    controladorDatos.getInstancia().getDatos().add(nuevoJuego);
+                    JOptionPane.showMessageDialog(null, "PELICULA AGREGADA EXITOSAMENTE");
+                    codigotxt.setText("");
+                    nombretxt.setText("");
+                    preciotxt.setText("");
+                    imagLb.setIcon(null);
+                    imagenGuardada= null;
+                    
+                }
+              }
     }
     
     
@@ -174,31 +287,26 @@ public class ventAddItem implements MenuActions {
         ventAddItem ventana = new ventAddItem();
     }
     
-  /*  
-    private boolean validacionCodigo(){
+
+    private boolean validacionCodigo(int codigo){
         //for(Abstractclass item: arrayList<serv>){
-        try{
-            int code = Integer.parseInt(codigotxt.getText());
-            if(code>0){
-                if(code==item.getCodigo()){
-                       return true;
-                }else{
-                    JOptionPane.showMessageDialog(null, "El codigo ya existe");
-                 }
-            }else{
-                JOptionPane.showMessageDialog(null, "Codigo Solamente puede ser numeros enteros positivos");
+        boolean validacion =false;
+        
+        ArrayList<RentItem> items = controladorDatos.getInstancia().getDatos();
+        for(RentItem object: items){
+            if(codigo==object.getCodigoItem()){
+                validacion=true;
             }
-            
-        }catch(NumberFormatException e)  {
-            JOptionPane.showMessageDialog(null, "Codigo Solamente puede ser numeros enteros");
         }
           
         
-          
+        if(validacion==false){
+            return true;
+        }
+        
         return false;
     }
-    */
-    
+
     
     
 }

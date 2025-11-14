@@ -8,12 +8,14 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -98,8 +100,35 @@ public class ventRentItem implements MenuActions {
             buscarnt.addActionListener(new ActionListener(){
           @Override 
           public void actionPerformed(ActionEvent e){ 
+              ArrayList<RentItem> items = controladorDatos.getInstancia().getDatos();
+              RentItem selected=null;
+              int codeYes=0;
+              try{
+                  int code = Integer.parseInt(buscartxt.getText().trim());
+                  codeYes=code;
+              }catch(NumberFormatException h){
+                  JOptionPane.showMessageDialog(null, "CODIGO INVALIDO");
+              }
+              
+             
+             for(RentItem obj: items){
+                if(obj.CodigoItem==codeYes){
+                     selected=obj;
+                     break;
+                    }
+              }
+              
              
               
+              if(selected!=null){
+                  nombretxt.setText(selected.getNombreItem());
+                  preciotxt.setText(String.valueOf(selected.getPrecioBase()));
+                  rentatxt.setText(String.valueOf(selected.PagoRenta(5)));
+                  rentalb.setIcon(selected.ImagenItem);
+                  
+              }else{
+                  JOptionPane.showMessageDialog(null, "ITEM NO EXISTE");
+              }
           }
                     
         });
@@ -138,6 +167,8 @@ public class ventRentItem implements MenuActions {
           btVolver.addActionListener(new ActionListener(){
           @Override 
           public void actionPerformed(ActionEvent e){ 
+              screen.dispose();
+              menuPrincipal ventana = new menuPrincipal();
           }
                     
         });

@@ -8,6 +8,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -18,9 +19,19 @@ import javax.swing.JOptionPane;
  * @author David
  */
 public class menuPrincipal implements MenuActions{
+    
+    public static ArrayList<RentItem> itemsRentados = new ArrayList<>();;
+    
+    
+    
+    
     public menuPrincipal(){
+        
         submenu();
     }
+    
+    
+    
 
     @Override
     public void submenu() {
@@ -46,6 +57,8 @@ public class menuPrincipal implements MenuActions{
         btAgregar.addActionListener(new ActionListener(){
           @Override 
           public void actionPerformed(ActionEvent e){ 
+              screen.dispose();
+              ventAddItem ventana = new ventAddItem();
           }
                     
         });
@@ -57,6 +70,8 @@ public class menuPrincipal implements MenuActions{
         btRentar.addActionListener(new ActionListener(){
           @Override 
           public void actionPerformed(ActionEvent e){ 
+              screen.dispose();
+              ventRentItem ventana = new ventRentItem();
           }
                     
         });
@@ -70,6 +85,8 @@ public class menuPrincipal implements MenuActions{
         btMostrar.addActionListener(new ActionListener(){
           @Override 
           public void actionPerformed(ActionEvent e){ 
+              screen.dispose();
+              ImprimirTodo ventana = new ImprimirTodo();
           }
                     
         });
@@ -81,6 +98,7 @@ public class menuPrincipal implements MenuActions{
         btSalir.addActionListener(new ActionListener(){
           @Override 
           public void actionPerformed(ActionEvent e){ 
+              screen.dispose();
           }
                     
         });
