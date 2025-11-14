@@ -14,6 +14,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -24,6 +25,10 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class ventAddItem implements MenuActions {
     
     private ImageIcon imagenGuardada;
+    JTextField codigotxt = new JTextField();
+    
+    
+    
     public ventAddItem(){
         submenu();
     }
@@ -54,7 +59,7 @@ public class ventAddItem implements MenuActions {
          codigolb.setBounds(100, 210, 200, 50);
          
          
-         JTextField codigotxt = new JTextField();
+         
          codigotxt.setBounds(100, 260, 200, 20);
          
          
@@ -74,7 +79,7 @@ public class ventAddItem implements MenuActions {
         JButton imagenlb = new JButton("Seleccione la imagen del Item");
          imagenlb.setBounds(400, 130, 280, 30);
          
-         JLabel imagLb = new JLabel("imagen aqui");
+         JLabel imagLb = new JLabel("");
          imagLb.setBounds(400, 180, 280, 300);
          
             imagenlb.addActionListener(new ActionListener(){
@@ -161,12 +166,39 @@ public class ventAddItem implements MenuActions {
 
     @Override
     public void ejecutarOption(int opcion) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+       //Aqui iria logica de crear verificacion
     }
     
     
     public static void main(String[] args) {
         ventAddItem ventana = new ventAddItem();
     }
+    
+  /*  
+    private boolean validacionCodigo(){
+        //for(Abstractclass item: arrayList<serv>){
+        try{
+            int code = Integer.parseInt(codigotxt.getText());
+            if(code>0){
+                if(code==item.getCodigo()){
+                       return true;
+                }else{
+                    JOptionPane.showMessageDialog(null, "El codigo ya existe");
+                 }
+            }else{
+                JOptionPane.showMessageDialog(null, "Codigo Solamente puede ser numeros enteros positivos");
+            }
+            
+        }catch(NumberFormatException e)  {
+            JOptionPane.showMessageDialog(null, "Codigo Solamente puede ser numeros enteros");
+        }
+          
+        
+          
+        return false;
+    }
+    */
+    
+    
     
 }
