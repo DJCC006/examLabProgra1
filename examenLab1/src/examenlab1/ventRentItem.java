@@ -80,7 +80,12 @@ public class ventRentItem implements MenuActions {
          imaglb.setBounds(100, 310, 200, 500);
          
          
+           JLabel rentalb = new JLabel("Monto Total de Renta");
+         rentalb.setBounds(700, 200, 150, 50);
          
+           JTextField rentatxt = new JTextField();
+         rentatxt.setBounds(700, 260, 150, 20);
+         rentatxt.setEnabled(false);
          
          
          
@@ -146,6 +151,8 @@ public class ventRentItem implements MenuActions {
         screen.add(buscarnt);
         screen.add(imaglb);
         screen.add(tipolb);
+        screen.add(rentalb);
+        screen.add(rentatxt);
         screen.add(tipotxt);
         screen.add(buscartxt);
         screen.add(btAdd);
