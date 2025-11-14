@@ -25,7 +25,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  */
 public class ventRentItem implements MenuActions {
 
-    
+    RentItem selected=null;
     
     public ventRentItem(){
         submenu();
@@ -92,6 +92,10 @@ public class ventRentItem implements MenuActions {
          
          
          
+//          JLabel diaslb = new JLabel("Dias a Rentar");
+//         diaslb.setBounds(700, 200, 150, 50);
+//         
+         
          
         JButton buscarnt = new JButton("Buscar Item");
          buscarnt.setBounds(400, 130, 150, 30);
@@ -101,7 +105,7 @@ public class ventRentItem implements MenuActions {
           @Override 
           public void actionPerformed(ActionEvent e){ 
               ArrayList<RentItem> items = controladorDatos.getInstancia().getDatos();
-              RentItem selected=null;
+              
               int codeYes=0;
               try{
                   int code = Integer.parseInt(buscartxt.getText().trim());
@@ -123,8 +127,8 @@ public class ventRentItem implements MenuActions {
               if(selected!=null){
                   nombretxt.setText(selected.getNombreItem());
                   preciotxt.setText(String.valueOf(selected.getPrecioBase()));
-                  rentatxt.setText(String.valueOf(selected.PagoRenta(5)));
-                  rentalb.setIcon(selected.ImagenItem);
+                  
+                  imaglb.setIcon(selected.ImagenItem);
                   
               }else{
                   JOptionPane.showMessageDialog(null, "ITEM NO EXISTE");
@@ -148,6 +152,15 @@ public class ventRentItem implements MenuActions {
           btAdd.addActionListener(new ActionListener(){
           @Override 
           public void actionPerformed(ActionEvent e){ 
+              try{
+                  int days = Integer.valueOf(JOptionPane.showInputDialog(null, "Ingrese los dias de renta"));
+                  rentatxt.setText(String.valueOf(selected.PagoRenta(days)));
+              }catch(NumberFormatException k){
+                  JOptionPane.showMessageDialog(null, "VALOR INVALIDO");
+              }
+              
+              
+              
           }
              
         });
