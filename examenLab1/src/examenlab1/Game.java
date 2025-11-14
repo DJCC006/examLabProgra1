@@ -19,7 +19,7 @@ public class Game extends RentItem implements MenuActions {
     private ArrayList<String> Especificaciones;
     private static final int PRECIO_RENTA = 20;
     
-    public Game(String CodigoItem, String NombreItem, double PrecioBase) {
+    public Game(int CodigoItem, String NombreItem, double PrecioBase) {
         super(CodigoItem, NombreItem, PrecioBase);
         
         FechaPublicacion = Calendar.getInstance();
