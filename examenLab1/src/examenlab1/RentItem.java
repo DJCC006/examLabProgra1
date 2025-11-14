@@ -9,18 +9,24 @@ package examenlab1;
  * @author Hp
  */
 
+import javax.swing.ImageIcon;
+
 public abstract class RentItem {
     
-    protected String CodigoItem;
+    protected int CodigoItem;
     protected String NombreItem;
     protected double PrecioBase;
     protected int CantCopias;
+    protected ImageIcon ImagenItem;
+    protected String RutaImagen;
     
-    public RentItem(String CodigoItem, String NombreItem, double PrecioBase) {
+    public RentItem(int CodigoItem, String NombreItem, double PrecioBase) {
         this.CodigoItem = CodigoItem;
         this.NombreItem = NombreItem;
         this.PrecioBase = PrecioBase;
+        
         CantCopias = 0;
+        ImagenItem = null;
     }
     
     @Override
@@ -30,7 +36,7 @@ public abstract class RentItem {
     
     public abstract double PagoRenta(int dias);
 
-    public String getCodigoItem() {
+    public int getCodigoItem() {
         return CodigoItem;
     }
 
@@ -41,4 +47,14 @@ public abstract class RentItem {
     public double getPrecioBase() {
         return PrecioBase;
     }
+
+    public ImageIcon getImagenItem() {
+        return ImagenItem;
+    }
+
+    public void setImagenItem(ImageIcon ImagenItem) {
+        this.ImagenItem = ImagenItem;
+    }
+    
+    
 }
