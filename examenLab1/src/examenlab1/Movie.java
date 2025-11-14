@@ -5,7 +5,6 @@
 package examenlab1;
 
 import java.util.Calendar;
-import javax.swing.ImageIcon;
 
 /**
  *
@@ -70,6 +69,7 @@ public class Movie extends RentItem{
         }
     }
     
+    @Override
     public String toString(){
         String precio = (PrecioBase > 0) ? String.format("Lps.%.2f", PrecioBase) : "N/A";
         return "- Movie\n"
